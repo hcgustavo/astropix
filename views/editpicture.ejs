@@ -1,0 +1,63 @@
+<% include partials/header %>
+
+<div class="container">
+  <div class="newpicture-content">
+    <h1>Edit Picture</h1>
+    <form action="/picture/<%= picture.id %>/edit?_method=put" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="titleInput">Title</label>
+        <input type="text" class="form-control" id="titleInput" name="title" value="<%= picture.title %>" required>
+      </div>
+      <div class="form-group">
+        <label for="descriptionInput">Description</label>
+        <textarea class="form-control" rows="3" name="description" required><%= picture.description %></textarea>
+      </div>
+      <div class="form-group">
+        <label for="dateInput">Date</label>
+        <input type="text" class="form-control" id="dateInput" name="date" value="<%= picture.date %>">
+      </div>
+      <div class="form-group">
+        <label for="locationInput">Location</label>
+        <input type="text" class="form-control" id="locationInput" name="location" value="<%= picture.location %>">
+      </div>
+      <div class="form-group">
+        <label for="tagsInput">Tags</label>
+        <input type="text" class="form-control" id="tagsInput" name="tags">
+      </div>
+      <div class="form-group">
+        <label><a role="button" data-toggle="collapse" href="#techSpecs" aria-expanded="false" aria-controls="techSpecs">
+          Technical Specs <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </a></label>
+      </div>
+      <div class="collapse" id="techSpecs">
+        <div class="form-group">
+          <label for="telOrLensInput">Imaging telescope or lens</label>
+          <input type="text" class="form-control" id="telOrLensInput" name="imgTelOrLens" value="<%= picture.techSpecs.imgTelOrLens %>">
+        </div>
+        <div class="form-group">
+          <label for="imgCameraInput">Imaging camera</label>
+          <input type="text" class="form-control" id="imgCameraInput" name="imgCamera" value="<%= picture.techSpecs.imgCamera %>">
+        </div>
+        <div class="form-group">
+          <label for="mountInput">Mount</label>
+          <input type="text" class="form-control" id="mountInput" name="mount" value="<%= picture.techSpecs.mount %>">
+        </div>
+        <div class="form-group">
+          <label for="guidingTelLensInput">Guiding telescope or lens</label>
+          <input type="text" class="form-control" id="guidingTelLensInput" name="guidingTelOrLens" value="<%= picture.techSpecs.guidingTelOrLens %>">
+        </div>
+        <div class="form-group">
+          <label for="guidingCamInput">Guiding camera</label>
+          <input type="text" class="form-control" id="guidingCamInput" name="guidingCam" value="<%= picture.techSpecs.guidingCam %>">
+        </div>
+        <div class="form-group">
+          <label for="resolutionInput">Resolution</label>
+          <input type="text" class="form-control" id="resolutionInput" name="resolution" value="<%= picture.techSpecs.resolution %>">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+  </div>
+</div>
+
+<% include partials/footer %>

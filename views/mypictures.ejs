@@ -1,7 +1,24 @@
 <% include partials/header %>
 
 <div class="container">
-  <h1>My Pictures</h1>
+  <div class="mypictures">
+    <h1 class="underlined-heading">My Pictures</h1>
+    <% pictures.forEach(function(pic) { %>
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="thumbnail" src="<%= (pic.mediaType == 'image') ? pic.url : pic.thumbUrl %>" alt="">
+        </div>
+        <div class="col-lg-8">
+          <h3><%= pic.title %></h3>
+          <a href="/picture/<%= pic._id %>" type="button" class="btn btn-success btn-sm">View</a>
+          <a href="/picture/<%= pic._id %>/edit" type="button" class="btn btn-warning btn-sm">Edit</a>
+          <form action="/picture/<%= pic._id %>?_method=delete" method="post">
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </div>
+      </div>
+    <% }); %>
+  </div>
 </div>
 
 <% include partials/footer %>

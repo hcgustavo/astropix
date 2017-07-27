@@ -115,3 +115,22 @@ body {
   width: 50%;
   margin: 15px auto;
 }
+
+.mypictures h1 {
+  color: #2d2d2d;
+  border-bottom: 1px solid #d1d1d1;
+  padding-bottom: 5px;
+}
+
+.mypictures img {
+  width: 150px;
+  height: 150px;
+}
+
+.mypictures .col-lg-4 {
+  width: auto;
+}
+
+.mypictures form {
+  display: inline;
+}

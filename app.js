@@ -58,6 +58,27 @@ var isLoggedIn = function(req, res, next) {
   res.redirect('/gallery');
 }
 
+var checkPictureOwnership = function(req, res, next) {
+  if(req.isAuthenticated()) {
+    Picture.findById(req.params.id, function(err, foundPicture) {
+      if(err) {
+        req.flash('error', "Picture not found");
+        res.redirect('back');
+      } else {
+        if(foundPicture.author.id.equals(req.user._id)) {
+          next();
+        } else {
+          req.flash('error', "You do not have permission to do that");
+          res.redirect('back');
+        }
+      }
+    });
+  } else {
+    req.flash('error', "You need to be logged in to do that");
+    res.redirect('back');
+  }
+}
+
 
 ////////////////////////////////
 // ROUTES
@@ -79,6 +100,8 @@ app.get('/gallery', function(req, res) {
   Picture.find({}, function(err, pictures) {
     if(err) {
       console.log("Error finding pictures");
+      req.flash('error', "There was an error. Please try again later.");
+      res.redirect('/gallery');
     } else {
       res.render('index', {pictures: pictures});
     }
@@ -87,7 +110,11 @@ app.get('/gallery', function(req, res) {
 
 /* SHOW SIGN UP FORM */
 app.get('/signup', function(req, res) {
-  res.render('signup');
+  if(req.isAuthenticated()) {
+    res.redirect('/gallery');
+  } else {
+    res.render('signup');
+  }
 });
 
 /* PROCCESS SIGN UP */
@@ -98,6 +125,7 @@ app.post('/signup', function(req, res) {
   });
   User.register(newUser, req.body.password, function(err, user) {
     if(err) {
+      req.flash('error', "It was not possible to sign you up now. Please try again later.");
       return res.redirect('/signup');
     }
     res.redirect('/login');
@@ -106,7 +134,11 @@ app.post('/signup', function(req, res) {
 
 /* SHOW LOGIN FORM */
 app.get('/login', function(req, res) {
-  res.render('login');
+  if(req.isAuthenticated()) {
+    res.redirect('/gallery');
+  } else {
+    res.render('login');
+  }
 });
 
 /* PROCCESS LOGIN */
@@ -129,7 +161,84 @@ app.get('/myprofile', isLoggedIn, function(req, res) {
 
 /* SHOW USER'S PICTURES PAGE */
 app.get('/mypictures', isLoggedIn, function(req, res) {
-  res.render('mypictures');
+  Picture.find({author: {id: mongoose.Types.ObjectId(req.user.id), username: req.user.username}}, function(err, pics) {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('mypictures', {pictures: pics});
+    }
+  });
+});
+
+/* DELETE A PICTURE */
+app.delete('/picture/:id', checkPictureOwnership, function(req, res) {
+  Picture.findById(req.params.id, function(err, foundPicture) {
+    if(err) {
+      req.flash('error', "Picture not deleted");
+      res.redirect('/mypictures');
+    } else {
+      if(foundPicture.mediaType == "image") {
+        s3Bucket.deleteObject({Key: foundPicture.fileName}, function(err, data) {
+          if(err) {
+            req.flash('error', "Picture not deleted");
+            res.redirect('/mypictures');
+          }
+        });
+      }
+      Picture.findByIdAndRemove(req.params.id, function(err) {
+        if(err) {
+          req.flash('error', "Picture not deleted");
+          res.redirect('/mypictures');
+        } else {
+          req.flash('success', "Picture deleted successfully");
+          res.redirect('/mypictures');
+        }
+      });
+    }
+  });
+});
+
+/* SHOW EDIT PICTURE FORM */
+app.get('/picture/:id/edit', checkPictureOwnership, function(req, res) {
+  Picture.findById(req.params.id, function(err, foundPicture) {
+    if(err) {
+      req.flash('error', "Picture not found");
+      res.redirect('mypictures');
+    } else {
+      res.render('editpicture', {picture: foundPicture});
+    }
+  });
+});
+
+/* PROCCESS EDIT PICTURE FORM */
+app.put('/picture/:id/edit', checkPictureOwnership, function(req, res) {
+  var form = new formidable.IncomingForm();
+  form.parse(req, function(err, fields, files) {
+    var picture = {
+      title: fields.title,
+      description: fields.description,
+      date: fields.date,
+      location: fields.location,
+      techSpecs: {
+        imgTelOrLens: fields.imgTelOrLens,
+        imgCamera: fields.imgCamera,
+        mount: fields.mount,
+        guidingTelOrLens: fields.guidingTelOrLens,
+        guidingCam: fields.guidingCam,
+        resolution: fields.resolution
+      }
+    };
+    Picture.findByIdAndUpdate(req.params.id, picture, function(err, updatedPicture) {
+      if(err) {
+        req.flash('error', "Failed to update picture");
+        res.redirect('back');
+      } else {
+        console.log(updatedPicture);
+        req.flash('success', "Picture updated successfully");
+        res.redirect('/picture/' + updatedPicture._id);
+      }
+    });
+  });
 });
 
 /* SHOW ADD NEW PICTURE FORM */
@@ -188,6 +297,7 @@ app.post('/newpicture', isLoggedIn, function(req, res) {
                 res.redirect('/newpicture');
               } else {
                 picture.url = cdnUrl + "/" + fileName;
+                picture.fileName = fileName;
                 // Add picture to database
                 Picture.create(picture, function(err, createdPicture) {
                   if(err) {

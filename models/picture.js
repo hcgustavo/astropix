@@ -7,6 +7,7 @@ var pictureSchema = new mongoose.Schema({
   location: String,
   tags: [String],
   mediaType: String,
+  fileName: String,
   url: String,
   thumbUrl: String,
   techSpecs: {
