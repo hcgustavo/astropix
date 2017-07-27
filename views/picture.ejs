@@ -1,0 +1,61 @@
+<% include partials/header %>
+
+<div class="container">
+  <div class="picture-show">
+    <div class="thumbnail">
+      <% if(picture.mediaType == "image") { %>
+        <a href="<%= picture.url %>" target="_blank"><img src="<%= picture.url %>" alt="<%= picture.title %>"></a>
+        <div class="picture-show-overlay">
+          <h2> <%= picture.title %> </h2>
+          <h4> by <%= picture.author.username %> </h4>
+        </div>
+      <% } else { %>
+        <iframe width="800" height="315" src="<%= picture.url %>" frameborder="0" allowfullscreen></iframe>
+        <div>
+          <h2> <%= picture.title %> </h2>
+          <h4> by <%= picture.author.username %> </h4>
+        </div>
+      <% } %>
+      <div class="panels">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-cogs" aria-hidden="true"></i> Technical Specs</h3>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <li><strong>Imaging telescope or lens:</strong> <%= picture.techSpecs.imgTelOrLens %> </li>
+              <li><strong>Imaging camera:</strong> <%= picture.techSpecs.imgCamera %> </li>
+              <li><strong>Mount:</strong> <%= picture.techSpecs.mount %> </li>
+              <li><strong>Guiding telescope or lens:</strong> <%= picture.techSpecs.guidingTelOrLens %> </li>
+              <li><strong>Guiding camera:</strong> <%= picture.techSpecs.guidingCam %> </li>
+              <li><strong>Resolution:</strong> <%= picture.techSpecs.resolution %> </li>
+              <hr>
+              <li><strong>Date:</strong> <%= picture.date %> </li>
+              <li><strong>Location:</strong> <%= picture.location %> </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Description</h3>
+          </div>
+          <div class="panel-body">
+            <p> <%= picture.description %></p>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-comments" aria-hidden="true"></i> Comments</h3>
+          </div>
+          <div class="panel-body">
+            No comments yet
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include partials/footer %>

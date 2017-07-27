@@ -1,0 +1,27 @@
+<% include partials/header %>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1>Welcome to ASTR<i class="fa fa-globe" aria-hidden="true"></i>PIX</h1>
+    <h2>Your dedicated gallery for Astronomy photos and videos</h2>
+    <a href="/newpicture" id="add-new-pic-btn" role="button" class="btn btn-info btn-lg"><i class="fa fa-plus" aria-hidden="true"></i> Add New Picture</a>
+  </div>
+
+  <h2 id="latest-pics-title">Latest Pictures</h2>
+
+  <div class="row gallery" style="display: flex; flex-wrap: wrap;">
+    <% pictures.forEach(function(picture) { %>
+      <div class="col-md-3 col-sm-6">
+        <div class="thumbnail">
+          <img src="<%= (picture.mediaType == 'image') ? picture.url : picture.thumbUrl %>" alt="<%= picture.title %>">
+          <div class="picture-caption">
+            <h4><a href="/picture/<%= picture._id %>"><%= picture.title %></a></h4>
+            <p><em>By <%= picture.author.username %></em></p>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</div>
+
+<%include partials/footer %>

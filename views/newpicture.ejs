@@ -1,0 +1,82 @@
+<% include partials/header %>
+
+<div class="container">
+  <div class="newpicture-content">
+    <h1>New Picture</h1>
+    <form action="/newpicture" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="titleInput">Title</label>
+        <input type="text" class="form-control" id="titleInput" name="title" required>
+      </div>
+      <div class="form-group">
+        <label for="descriptionInput">Description</label>
+        <textarea class="form-control" rows="3" name="description" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="dateInput">Date</label>
+        <input type="text" class="form-control" id="dateInput" name="date">
+      </div>
+      <div class="form-group">
+        <label for="locationInput">Location</label>
+        <input type="text" class="form-control" id="locationInput" name="location">
+      </div>
+      <div class="form-group">
+        <label for="tagsInput">Tags</label>
+        <input type="text" class="form-control" id="tagsInput" name="tags">
+      </div>
+      <div class="form-group">
+        <label><a role="button" data-toggle="collapse" href="#techSpecs" aria-expanded="false" aria-controls="techSpecs">
+          Technical Specs <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </a></label>
+      </div>
+      <div class="collapse" id="techSpecs">
+        <div class="form-group">
+          <label for="telOrLensInput">Imaging telescope or lens</label>
+          <input type="text" class="form-control" id="telOrLensInput" name="imgTelOrLens">
+        </div>
+        <div class="form-group">
+          <label for="imgCameraInput">Imaging camera</label>
+          <input type="text" class="form-control" id="imgCameraInput" name="imgCamera">
+        </div>
+        <div class="form-group">
+          <label for="mountInput">Mount</label>
+          <input type="text" class="form-control" id="mountInput" name="mount">
+        </div>
+        <div class="form-group">
+          <label for="guidingTelLensInput">Guiding telescope or lens</label>
+          <input type="text" class="form-control" id="guidingTelLensInput" name="guidingTelOrLens">
+        </div>
+        <div class="form-group">
+          <label for="guidingCamInput">Guiding camera</label>
+          <input type="text" class="form-control" id="guidingCamInput" name="guidingCam">
+        </div>
+        <div class="form-group">
+          <label for="resolutionInput">Resolution</label>
+          <input type="text" class="form-control" id="resolutionInput" name="resolution">
+        </div>
+      </div>
+      <label>Media type</label>
+      <div class="form-group">
+        <label class="radio-inline">
+          <input type="radio" name="mediaType" id="imageTypeRadio" value="image" checked> Image
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="mediaType" id="videoTypeRadio" value="video"> Video
+        </label>
+      </div>
+      <div class="form-group" id="imageFileFormGroup">
+        <label for="imageFileInput">Image file (.JPG or .PNG)</label>
+        <input type="file" id="imageFileInput" name="imageFile">
+      </div>
+      <div class="form-group" id="videoIdFormGroup">
+        <label for="videoIdInput">Youtube video ID</label>
+        <p class="help-block">* You can get the ID from the video's URL <br> Ex: https://www.youtube.com/watch?v=Lq_shHu4lAs <strong>(ID: Lq_shHu4lAs)</strong></p>
+        <p class="help-block">* If possible, upload videos with a resolution of 720p or higher for better user experience</p>
+        <input type="text" class="form-control" id=videoIdInput name="videoId">
+      </div>
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+  </div>
+</div>
+
+<% include partials/footer %>

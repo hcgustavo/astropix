@@ -1,0 +1,117 @@
+body {
+  font-family: Lato;
+}
+
+#latest-pics-title {
+  width: 300px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.thumbnail {
+  position: relative;
+  padding: 0;
+}
+
+.thumbnail img {
+  width: 100%;
+  display: block;
+}
+
+.picture-caption {
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  position: absolute;
+  display: block;
+  bottom: 0;
+  left:0;
+  right:0;
+  width: 100%;
+  padding-left: 10px;
+}
+
+.picture-caption h4 {
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.picture-caption a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.picture-caption a:hover {
+  color: #9b9b9b;
+}
+
+.picture-caption p {
+  font-size: 0.8em;
+}
+
+.login-content {
+  padding: 10px;
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.login-content input {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.login-content button {
+  width: 50%;
+}
+
+.picture-show .thumbnail {
+  width: 800px;
+  margin: 0 auto;
+  border: none;
+}
+
+.picture-show-overlay {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  display: block;
+  bottom: 0;
+  left:0;
+  right:0;
+  width: 100%;
+  padding-left: 10px;
+}
+
+.picture-show .panels {
+  display: block;
+  position: absolute;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 0;
+}
+
+.picture-show .panel-default .panel-heading {
+  color: #fff;
+  background: #222;
+}
+
+.picture-show .panel ul {
+  padding-left: 10px;
+}
+
+.newpicture-content a {
+  color: #333;
+}
+
+.newpicture-content h1 {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.newpicture-content {
+  width: 50%;
+  margin: 15px auto;
+}
