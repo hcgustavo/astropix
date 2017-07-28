@@ -1,12 +1,12 @@
-$("#videoUrlFormGroup").hide();
+$("#videoIdFormGroup").hide();
 
 $('[name="mediaType"]').change(function() {
   if($("#imageTypeRadio").prop("checked")) {
-    $("#videoUrlFormGroup").hide();
+    $("#videoIdFormGroup").hide();
     $("#imageFileFormGroup").show();
   }
   else if($("#videoTypeRadio").prop("checked")) {
     $("#imageFileFormGroup").hide();
-    $("#videoUrlFormGroup").show();
+    $("#videoIdFormGroup").show();
   }
 });

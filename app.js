@@ -163,7 +163,8 @@ app.get('/myprofile', isLoggedIn, function(req, res) {
 app.get('/mypictures', isLoggedIn, function(req, res) {
   Picture.find({author: {id: mongoose.Types.ObjectId(req.user.id), username: req.user.username}}, function(err, pics) {
     if(err) {
-      console.log(err);
+      req.flash('error', "Could not get your pictures. Try again later");
+      res.redirect('back');
     } else {
       res.render('mypictures', {pictures: pics});
     }
@@ -338,6 +339,18 @@ app.get('/picture/:id', function(req, res) {
       res.render('index');
     } else {
       res.render('picture', {picture: foundPicture});
+    }
+  });
+});
+
+/* SHOW SPECIFIC PICTURE FULL SIZE PAGE */
+app.get('/picture/:id/full', function(req, res) {
+  Picture.findById(req.params.id, function(err, foundPicture) {
+    if(err) {
+      req.flash('error', "Error loading picture");
+      res.redirect('back');
+    } else {
+      res.render('picturefull', {picture: foundPicture});
     }
   });
 });

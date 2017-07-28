@@ -4,7 +4,7 @@
   <div class="picture-show">
     <div class="thumbnail">
       <% if(picture.mediaType == "image") { %>
-        <a href="<%= picture.url %>" target="_blank"><img src="<%= picture.url %>" alt="<%= picture.title %>"></a>
+        <a href="/picture/<%= picture._id %>/full"><img src="<%= picture.url %>" alt="<%= picture.title %>"></a>
         <div class="picture-show-overlay">
           <h2> <%= picture.title %> </h2>
           <h4> by <%= picture.author.username %> </h4>

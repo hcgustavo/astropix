@@ -2,7 +2,13 @@
 
 <div class="container">
   <div class="mypictures">
-    <h1 class="underlined-heading">My Pictures</h1>
+    <h1>My Pictures</h1>
+    <% if(pictures.length == 0) { %>
+      <div class="nopicture">
+        <h3>You haven't post any pictures yet.</h3>
+      </div>
+    <% } %>
+
     <% pictures.forEach(function(pic) { %>
       <div class="row">
         <div class="col-lg-4">

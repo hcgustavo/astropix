@@ -10,6 +10,12 @@
   <h2 id="latest-pics-title">Latest Pictures</h2>
 
   <div class="row gallery" style="display: flex; flex-wrap: wrap;">
+    <% if(pictures.length == 0) { %>
+      <div class="nopicture">
+        <h3>No pictures available</h3>
+      </div>
+    <% } %>
+
     <% pictures.forEach(function(picture) { %>
       <div class="col-md-3 col-sm-6">
         <div class="thumbnail">

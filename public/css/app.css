@@ -8,8 +8,17 @@ body {
 }
 
 .navbar {
-    border-radius: 0;
+  border-radius: 0;
 }
+
+.navbar-inverse .navbar-brand {
+  color: #fff;
+}
+
+.navbar-inverse .navbar-brand:hover {
+  color: #9d9d9d;
+}
+
 
 .thumbnail {
   position: relative;
@@ -122,6 +131,10 @@ body {
   padding-bottom: 5px;
 }
 
+.nopicture {
+  color: #b2b2b2;
+}
+
 .mypictures img {
   width: 150px;
   height: 150px;
@@ -133,4 +146,12 @@ body {
 
 .mypictures form {
   display: inline;
+}
+
+.picturefull {
+  margin-top: -20px;
+}
+
+.picturefull img {
+  width: 100%;
 }
